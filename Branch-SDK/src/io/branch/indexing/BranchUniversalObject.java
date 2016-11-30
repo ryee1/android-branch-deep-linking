@@ -390,6 +390,10 @@ public class BranchUniversalObject implements Parcelable {
         return imageUrl_;
     }
 
+    public String getCanonicalUrl_() {
+        return canonicalUrl_;
+    }
+
     /**
      * <p>
      * Get a title for the content referred by this object
@@ -569,7 +573,8 @@ public class BranchUniversalObject implements Parcelable {
                     .setChannelProperties(channelProperties)
                     .setSubject(style.getMessageTitle())
                     .setMessage(style.getMessageBody())
-                    .setImageUrl(getImageUrl());
+                    .setImageUrl(getImageUrl())
+                    .setCanonicalUrl(getCanonicalUrl());
 
             if (style.getCopyUrlIcon() != null) {
                 shareLinkBuilder.setCopyUrlStyle(style.getCopyUrlIcon(), style.getCopyURlText(), style.getUrlCopiedMessage());

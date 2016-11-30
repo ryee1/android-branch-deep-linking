@@ -55,6 +55,7 @@ class ShareLinkManager {
     private int shareDialogThemeID_ = -1;
 
     private String imageUrl;
+    private String canonicalUrl;
     private Branch.ShareLinkBuilder builder_;
     final int padding = 5;
     final int leftMargin = 100;
@@ -70,6 +71,7 @@ class ShareLinkManager {
 
         builder_ = builder;
         imageUrl = builder.getImageUrl_();
+        canonicalUrl = builder.getCanonicalUrl_();
         context_ = builder.getActivity();
         callback_ = builder.getCallback();
         channelPropertiesCallback_ = builder.getChannelPropertiesCallback();
@@ -190,7 +192,12 @@ class ShareLinkManager {
                 if (view.getTag() instanceof MoreShareItem) {
                     appList_ = matchingApps;
                     adapter.notifyDataSetChanged();
-                } else {
+                }
+                //TODO disable pinterest sharing
+//                else if( ((ResolveInfo)view.getTag()).activityInfo.processName.equals(SharingHelper.SHARE_WITH.PINTEREST.toString())) {
+//                        Toast.makeText(context_, "Pinterest sharing coming soon!", Toast.LENGTH_SHORT).show();
+//                    }
+                else {
                     if (callback_ != null) {
                         String selectedChannelName = "";
                         if (view.getTag() != null && context_ != null && ((ResolveInfo) view.getTag()).loadLabel(context_.getPackageManager()) != null) {
@@ -300,7 +307,7 @@ class ShareLinkManager {
             if(selectedResolveInfo.activityInfo.processName.equals(SharingHelper.SHARE_WITH.PINTEREST.toString()) && imageUrl != null){
                 url = String.format(
                         PINTEREST_SHARE_URL,
-                        urlEncode(url), urlEncode(imageUrl), shareMsg);
+                        urlEncode(canonicalUrl), urlEncode(imageUrl), shareMsg);
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 context_.startActivity(intent);
             }

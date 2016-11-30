@@ -2767,6 +2767,7 @@ public class Branch implements BranchViewHandler.IBranchViewEvents, SystemObserv
         private final Activity activity_;
         private final Branch branch_;
 
+        private String canonicalUrl_;
         private String imageUrl_;
         private String shareMsg_;
         private String shareSub_;
@@ -2859,8 +2860,18 @@ public class Branch implements BranchViewHandler.IBranchViewEvents, SystemObserv
             return this;
         }
 
-        public String getImageUrl() {
+        public String getImageUrl_() {
             return imageUrl_;
+        }
+
+
+        public ShareLinkBuilder setCanonicalUrl(String canonicalUrl) {
+            this.canonicalUrl_ = canonicalUrl;
+            return this;
+        }
+
+        public String getCanonicalUrl_() {
+            return canonicalUrl_;
         }
 
         /**
